@@ -1,0 +1,49 @@
+### Hooker.cs (Version 5.2)
+
+*   **Inherits From:** `KCAlgoBase`
+
+*   **Overall Purpose:**
+    *   This strategy attempts to enter trades based on signals from the **`BlueZHMAHooks`** indicator, which identifies potential trend changes or "hooks" in the Hull Moving Average (HMA). It uses the direction of the HMA and specific trend change signals from the indicator.
+
+*   **Entry Logic (Specific Conditions):**
+    *   This strategy defines its specific entry signals primarily using the `BlueZHMAHooks` indicator. The `HmaPeriod` parameter is inherited from `KCAlgoBase`.
+    *   It relies on the **`KCAlgoBase`** for the final entry decision, meaning trades are only placed if the base class conditions are also met (e.g., `uptrend`/`downtrend` check, time filters, PnL limits, chop filter are active).
+    *   **Long Entry (`ValidateEntryLong`):**
+        *   Returns `true` if either of the following conditions is met:
+            *   **Hook Signal:** The `BlueZHMAHooks` trend plot just flipped from down (-1) to up (1) (`hullMAHooks.trend[0] == 1 && hullMAHooks.trend[1] == -1`), AND the current price is above the HMA line (`Close[0] > hullMAHooks[0]`).
+            *   **OR HMA Slope:** The HMA line itself is simply rising (`hullMAHooks[0] > hullMAHooks[1]`).
+        *   The actual `EnterLongPosition()` is only called by `KCAlgoBase` if one of these conditions AND the base class `uptrend` condition (and other base checks) are met.
+    *   **Short Entry (`ValidateEntryShort`):**
+        *   Returns `true` if either of the following conditions is met:
+            *   **Hook Signal:** The `BlueZHMAHooks` trend plot just flipped from up (1) to down (-1) (`hullMAHooks.trend[0] == -1 && hullMAHooks.trend[1] == 1`), AND the current price is below the HMA line (`Close[0] < hullMAHooks[0]`).
+            *   **OR HMA Slope:** The HMA line itself is simply falling (`hullMAHooks[0] < hullMAHooks[1]`).
+        *   The actual `EnterShortPosition()` is only called by `KCAlgoBase` if one of these conditions AND the base class `downtrend` condition (and other base checks) are met.
+    *   *Note:* The `regChanUp`/`regChanDown` calculations in `OnBarUpdate` involving `RegressionChannel1` and `RegressionChannel2` are defined but **not directly used** in the final `longSignal`/`shortSignal` logic provided.
+
+*   **Exit Logic:**
+    *   Primarily relies on **`KCAlgoBase`** for standard exits:
+        *   Initial Stop Loss (`InitialStop` parameter in base).
+        *   Trailing Stop (based on `TrailStopType` parameter in base - Tick, RegChan, ATR, 3-Step).
+        *   Breakeven (`BESetAuto` logic in base).
+        *   Profit Target (based on `EnableFixedProfitTarget`, `EnableRegChanProfitTarget`, `EnableDynamicProfitTarget` parameters in base).
+        *   Session Close (`IsExitOnSessionCloseStrategy` in base).
+        *   KillSwitch (Daily P/L limits, Trailing Drawdown in base).
+    *   **Potential Signal Exit:** This strategy sets `exitLong = shortSignal` and `exitShort = longSignal` in `OnBarUpdate`. If the `enableExit` parameter (in `KCAlgoBase`) is set to `true`, the `ValidateExitLong`/`Short` methods will return `true` when an opposite entry signal occurs. This creates a **reverse-on-opposite-signal** exit mechanism *if `enableExit` is activated*. By default (`enableExit = false`), this specific exit logic is inactive, and exits rely on the base class's stop/target/limit mechanisms.
+
+*   **Risk Management:**
+    *   Fully managed by **`KCAlgoBase`** (Initial Stop, Trailing options, BE, Daily P/L limits, Trailing Drawdown, KillSwitch). This strategy adds no specific risk parameters of its own.
+
+*   **Key Parameters (Added by this Strategy):**
+    *   None. This strategy uses parameters inherited from `KCAlgoBase`, such as `HmaPeriod`, `RegChanPeriod`, `RegChanWidth`, `RegChanWidth2`. It may set different *default values* for these in its `OnStateChange` compared to the base, but the parameters themselves belong to the base.
+
+*   **Best Time/Conditions (Inferred):**
+    *   Like all strategies using `KCAlgoBase`, it should perform better in **trending markets** and **non-choppy conditions** due to the base class filters.
+    *   The focus on HMA hooks suggests it aims to capture entries shortly after a potential **trend reversal or continuation** signal from the HMA.
+    *   The inclusion of the simple HMA slope condition provides a fallback for entering during established HMA trends.
+    *   Performance depends heavily on the effectiveness of the `BlueZHMAHooks` indicator and the chosen `HmaPeriod` in identifying valid trend changes/continuations in the traded instrument and timeframe.
+    *   **Disclaimer:** Effectiveness requires **thorough backtesting and optimization** of both the Hooker strategy logic and the underlying `KCAlgoBase` parameters.
+
+*   **Notes:**
+    *   Relies heavily on the `BlueZHMAHooks` indicator for its core signaling logic.
+    *   The name "Hooker" clearly relates to the "hook" signal generated by the HMA indicator.
+    *   The reverse-on-signal exit behavior is present but only active if the user explicitly enables the `enableExit` parameter in the strategy settings.
