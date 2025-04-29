@@ -4,7 +4,7 @@
 
 ## Core Framework
 
-*   [**KCAlgoBase**](./KCAlgoBase/README.md): The foundational class providing shared indicators, risk management, and order logic. *(Clicking this takes you to the KCAlgoBase description)*
+*   [**KCAlgoBase**](./KCAlgoBase/README.md): The foundational class providing shared indicators, risk management, and order logic.
 
 ## Strategies
 
