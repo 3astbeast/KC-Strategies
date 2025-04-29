@@ -1,6 +1,8 @@
 # NQ/MNQ Trading Bot Collection for NinjaTrader 8
 
-(Your introduction and disclaimers here...)
+**🛑 RISK DISCLAIMER 🛑**
+
+**Use these automated trading strategies at your own sole risk. Futures trading is extremely risky and can result in significant losses. This code is provided for educational purposes only, NOT as financial advice. Past performance does not guarantee future results. Thorough backtesting and understanding are critical before any use.**
 
 ## Core Framework
 
