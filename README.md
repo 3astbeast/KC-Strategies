@@ -12,7 +12,7 @@
 
 Here are the individual trading strategies built on the KCAlgoBase framework. Each strategy uses the base class for overall trend/chop filtering, risk management, and order execution, but defines its own specific entry signals:
 
-*   [**Chaser**](./Strategies/Chaser/README.md): Enters trades following short-term momentum indicated by the slope of the Linear Regression Curve.
+*   [**Chaser**](./Chaser/README.md): Enters trades following short-term momentum indicated by the slope of the Linear Regression Curve.
 *   [**Hooker**](./Strategies/Hooker/README.md): Uses trend change "hook" signals or the slope of the BlueZHMAHooks indicator for entries.
 *   [**KingKhanh**](./Strategies/KingKhanh/README.md): Generates signals based on Regression Channel slope changes and price interaction with the channel bands.
 *   [**MagicTrendy**](./Strategies/MagicTrendy/README.md): Follows the trend signaled by the slope change of the TrendMagic indicator.
