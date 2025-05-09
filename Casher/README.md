@@ -1,5 +1,7 @@
 ### Casher.cs (Version 5.4.4)
 
+*   **Please note this strategy requires the installation of the HiLoBands indicator, which is also included as a download on this page**
+
 *   **Inherits From:** `KCAlgoBase`
 
 *   **Overall Purpose:**
