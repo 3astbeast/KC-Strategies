@@ -7,7 +7,7 @@
 ## Core Framework
 
 *   [**KCAlgoBase**](./KCAlgoBase/README.md): The foundational class providing shared indicators, risk management, and order logic.
-*   [**KCAlgoBase**](./ATMAlgoBase/README.md): The foundational class providing shared indicators, risk management, and order logic that also allows you to choose your own ATM.
+*   [**KCAlgoBase**](./!ATMAlgoBase): The foundational class providing shared indicators, risk management, and order logic that also allows you to choose your own ATM.
 
 ## Strategies
 
