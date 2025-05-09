@@ -1,3 +1,38 @@
+# KCAlgoBase.cs - Core Trading Framework
+
+**Current Version:** v5.4.3 (See details below)
+
+---
+
+## Changelog
+
+### v5.4.3 (Date of Release)
+*   **File Logging:** Added comprehensive file logging system (`EnableLogging` parameter).
+*   **Stop Adjustment (Manual Buttons):** Refined logic using `lastAdjustedStopPrice` and calculation based on `ticksFromMarket`. Added detailed logging.
+*   **UI Enhancements:** Improved WPF button appearance (shadows, margins) and panel layout.
+*   **Trade Delay:** Increased default `tradeDelay` from 10s to 30s.
+*   **Variable Access:** Changed indicator/trend flag variables to `protected`.
+*   **Default Parameter Changes:**
+    *   HMA Period: 16 -> 8
+    *   VMA/Momo: Disabled by default.
+    *   ADX Exit Threshold: 45 -> 90
+    *   Scale-out Profit Targets: Enabled by default with adjusted values.
+    *   BE Trigger: 48 -> 32 ticks.
+    *   New Parameter: `MaxRegChanStopDistanceTicks` added.
+    *   (List other significant parameter changes...)
+*   **Regression Channel Logic:** Refined fallback conditions for RegChan trailing stops and profit targets.
+*   **PnL Logging:** Enhanced `OnPositionUpdate` logging for P/L limits.
+*   *(For more details, see the commit history or the release notes for this version on GitHub.)*
+
+### v5.4.0.2-dev (Previous Version Date)
+*   Initial public version described in this document.
+*   Features included: Indicator suite, trend/chop logic, advanced order management, risk management, UI panel.
+*   *(Details of this version follow below...)*
+
+---
+
+
+
 ## KCAlgoBase.cs - Core Trading Framework
 
 *   **Type:** Abstract Base Strategy (Cannot be run directly)
