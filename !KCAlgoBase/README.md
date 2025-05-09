@@ -1,6 +1,6 @@
 # KCAlgoBase.cs - Core Trading Framework
 
-**Current Version:** v5.4.3 (See details below)
+### [v5.4.3](https://github.com/3astbeast/KC-Strategies/releases/tag/5.4.3) (2025-05-09)
 
 ---
 
